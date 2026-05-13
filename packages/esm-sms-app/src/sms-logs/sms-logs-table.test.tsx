@@ -1,4 +1,5 @@
 import React from 'react';
+import { type Mock } from 'vitest';
 import { screen } from '@testing-library/react';
 import SmslogsTable from './sms-logs-table.component';
 import { useTranslation } from 'react-i18next';
@@ -6,20 +7,20 @@ import { useConfig, usePagination, useLayoutType } from '@openmrs/esm-framework'
 import { useSmsLogs } from '../hooks/useLogs';
 import { renderWithSwr } from 'tools';
 
-jest.mock('react-i18next', () => ({
-  useTranslation: jest.fn(),
+vi.mock('react-i18next', () => ({
+  useTranslation: vi.fn(),
 }));
 
-jest.mock('../hooks/useLogs', () => ({
-  useSmsLogs: jest.fn(),
+vi.mock('../hooks/useLogs', () => ({
+  useSmsLogs: vi.fn(),
 }));
 
 describe('SmslogsTable', () => {
-  const mockUseTranslation = useTranslation as jest.Mock;
-  const mockUseConfig = useConfig as jest.Mock;
-  const mockUsePagination = usePagination as jest.Mock;
-  const mockUseLayoutType = useLayoutType as jest.Mock;
-  const mockUseLogsRecords = useSmsLogs as jest.Mock;
+  const mockUseTranslation = useTranslation as Mock;
+  const mockUseConfig = useConfig as Mock;
+  const mockUsePagination = usePagination as Mock;
+  const mockUseLayoutType = useLayoutType as Mock;
+  const mockUseLogsRecords = useSmsLogs as Mock;
 
   beforeEach(() => {
     mockUseTranslation.mockReturnValue({ t: (key: string, value: string) => value });
@@ -31,7 +32,7 @@ describe('SmslogsTable', () => {
     mockUsePagination.mockReturnValue({
       results: mockLogs,
       paginated: true,
-      goTo: jest.fn(),
+      goTo: vi.fn(),
       currentPage: 1,
     });
   });
@@ -41,7 +42,7 @@ describe('SmslogsTable', () => {
       smsLogs: [],
       isLoadingLogs: true,
       isValidatingLogs: false,
-      mutateLogs: jest.fn(),
+      mutateLogs: vi.fn(),
       error: null,
     });
     renderSmsLogsTable();
@@ -53,7 +54,7 @@ describe('SmslogsTable', () => {
       smsLogs: [],
       isLoadingLogs: false,
       isValidatingLogs: false,
-      mutateLogs: jest.fn(),
+      mutateLogs: vi.fn(),
       error: new Error(),
     });
     renderSmsLogsTable();
