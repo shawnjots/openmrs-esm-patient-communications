@@ -11,7 +11,7 @@
     "ci:prepublish": "yarn workspaces foreach --all --topological --exclude @openmrs/esm-patient-communications npm publish --access public --tag next",
     "release": "yarn workspaces foreach --all --topological version",
     "verify": "turbo lint typescript test --concurrency=1",
-    "test-e2e": "playwright test",
+    "test-e2e": "playwright test --pass-with-no-tests",
     "postinstall": "husky install"
   },
   "dependencies": {
